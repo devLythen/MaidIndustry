@@ -28,7 +28,7 @@ object AltarCraftingManager {
         val craftingInput = CraftingInput.of(6, 1, arrayList)
         level.recipeManager.getRecipeFor(InitRecipes.ALTAR_CRAFTING.get(), craftingInput, level).ifPresent { recipe ->
             val powerCost = recipe.value().power
-            val centrePos = getCentrePos(altar.blockPosList, altar.blockPos)
+            val centrePos = getCentrePos(altar)
             
             var foundBeacon: TileEntityMaidBeacon? = null
             // Search for Maid Beacon within 8 blocks radius from centrePos
@@ -67,11 +67,11 @@ object AltarCraftingManager {
         }
     }
 
-    private fun getCentrePos(posList: PosListData, posClick: BlockPos): BlockPos {
+    private fun getCentrePos(altar: TileEntityAltar): BlockPos {
         var x = 0
-        val y = posClick.y - 2
+        val y = altar.canPlaceItemPosList.data[0].y - 2
         var z = 0
-        for (pos in posList.data) {
+        for (pos in altar.blockPosList.data) {
             if (pos.y == y) {
                 x += pos.x
                 z += pos.z
