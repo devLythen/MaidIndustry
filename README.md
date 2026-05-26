@@ -1,43 +1,24 @@
-# Kotlin Modding Skeleton
-Provides an example mod written in Kotlin using Kotlin for Forge.
+# Maid Industry (女仆工业)
 
-## IMPORTANT:
-If your mod uses another library that is written in Kotlin (like OkHttp3) you will need to use the slim artifact of KFF instead.
-```groovy
-dependencies {
-    // Use slim artifact of KFF
-    implementation('thedarkcolour:kotlinforforge-neoforge:VERSION:slim')
-    
-    // Add Kotlin libs as non-mc libs in ModDevGradle
-    additionalRuntimeClasspath ('org.jetbrains.kotlin:kotlin-stdlib')
-    additionalRuntimeClasspath ('org.jetbrains.kotlin:kotlin-reflect')
-    additionalRuntimeClasspath ('org.jetbrains.kotlinx:kotlinx-coroutines-core')
-    additionalRuntimeClasspath ('org.jetbrains.kotlinx:kotlinx-serialization-core')
-    additionalRuntimeClasspath ('org.jetbrains.kotlinx:kotlinx-serialization-json')
-}
-```
+这是一个围绕 **车万女仆 (Touhou Little Maid)** 与 **机械动力 (Create)** 打造的自动化革命 Minecraft 模组。
+我们致力于将女仆世界中的奇妙机制与现代化的工业齿轮流水线完美结合！
 
-ALSO:  
-Debugging with Coroutines is currently broken due to an issue [with JPMS and IntelliJ](https://youtrack.jetbrains.com/issue/KTIJ-15750/Debugger-doesnt-work-at-all-in-Java-projects-with-enabled-Kotlin-plugin-and-coroutine-debugger#focus=Comments-27-4923828.0-0). You might see an error like this upon running the game in Debug Mode:
-```
-Exception in thread "main" java.lang.NoClassDefFoundError: kotlin/Result
-    at kotlinx.coroutines.debug.AgentPremain.<clinit>(AgentPremain.kt:20)
-    at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
-    at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1160)
-    at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:300)
-    at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newMethodAccessor(MethodHandleAccessorFactory.java:71)
-    at java.base/jdk.internal.reflect.ReflectionFactory.newMethodAccessor(ReflectionFactory.java:159)
-    at java.base/java.lang.reflect.Method.acquireMethodAccessor(Method.java:726)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:577)
-    at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:560)
-    at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:572)
-Caused by: java.lang.ClassNotFoundException: kotlin.Result
-    ... 10 more
-*** java.lang.instrument ASSERTION FAILED ***: "!errorOutstanding" with message Outstanding error when calling method in invokeJavaAgentMainMethod at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 627
-*** java.lang.instrument ASSERTION FAILED ***: "success" with message invokeJavaAgentMainMethod failed at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 466
-*** java.lang.instrument ASSERTION FAILED ***: "result" with message agent load/premain call failed at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 429
-```
+## 🚀 目前支持的自动化功能
 
-### The Fix
-The link above contains a fix for older IntelliJ versions which no longer applies. The new fix is going to `Settings > Build, Execution, Deployment > Debugger` and ticking the "Disable coroutine agent" setting under the Kotlin section:
-![coroutines_fix.png](coroutines_fix.png)
+### 1. 机械臂自动合成（祭坛自动化）
+* **无缝对接**：机械动力的“机械臂”现在可以直接向祭坛底部的柱子精准投放物品。
+* **智能供能**：当合成配方满足时，系统会自动在祭坛中心点 8 格半径内寻找**神社庭灯 (Maid Beacon)**。
+* **自动结算**：若神社庭灯内有充足的 P 点（Power），将自动扣除对应的 P 点并在祭坛中心瞬间完成产物的合成，全程伴随原版粒子特效与音效。
+
+### 2. 理包机包裹投递（祭坛物流打平）
+* **专属接收端**：祭坛的**鸟居门（红色羊毛部分）**现在被设计为专门接收物流包裹的终端。
+* **模拟拆包与分配**：您可以通过漏斗、溜槽，甚至是贴脸放置的**理包机 (Packager)**，将打包好的**包裹 (PackageItem)** 送入鸟居门。
+* **自动铺设**：当鸟居门接收到包裹时，会自动拆开包裹，将里面的物品均匀地打平分配到祭坛周围所有的空柱子上。
+* **无缝触发**：铺设完毕后，会立即触发合成检测，自动消耗 P 点完成制作，实现最高效的无序配方量产工厂！
+
+---
+**构建说明**：
+* 本项目已配置完整的 GitHub Actions CI，每次 Push 或发布 Tag 都会自动编译。
+* 如果您想在本地编译，请运行 `./gradlew build`。
+
+Enjoy the industry of maids! ⚙️🌸
