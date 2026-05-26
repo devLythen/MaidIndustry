@@ -105,11 +105,26 @@ repositories {
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
         content { includeGroup "thedarkcolour" }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.5.0'
+
+    // Create & Touhou Little Maid from Modrinth
+    implementation 'maven.modrinth:create:6.0.10+mc1.21.1'
+    implementation 'maven.modrinth:touhou-little-maid:1.5.3-neoforge+mc1.21.1'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
