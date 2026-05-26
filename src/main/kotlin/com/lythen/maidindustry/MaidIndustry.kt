@@ -2,8 +2,10 @@ package com.lythen.maidindustry
 
 import com.github.tartaricacid.touhoulittlemaid.init.InitBlocks
 import com.simibubi.create.api.registry.CreateRegistries
+import com.simibubi.create.api.packager.unpacking.UnpackingHandler
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointType
 import net.neoforged.fml.common.Mod
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -26,6 +28,13 @@ object MaidIndustry {
         ARM_INTERACTION_POINT_TYPES.register(MOD_BUS)
 
         MOD_BUS.addListener(this::registerCapabilities)
+        MOD_BUS.addListener(this::setup)
+    }
+
+    private fun setup(event: FMLCommonSetupEvent) {
+        event.enqueueWork {
+            UnpackingHandler.REGISTRY.register(InitBlocks.ALTAR.get(), AltarUnpackingHandler)
+        }
     }
 
     private fun registerCapabilities(event: RegisterCapabilitiesEvent) {
